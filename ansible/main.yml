@@ -1,7 +1,7 @@
 ---
 
-#- name: Ejecucion docker y docker compose
-#  import_playbook: Playbooks/install-docker.yml
+- name: Ejecucion docker y docker compose
+  import_playbook: Playbooks/install-docker.yml
 
 - name: Desplegamos los contenedores
   import_playbook: Playbooks/deploy-compose.yml

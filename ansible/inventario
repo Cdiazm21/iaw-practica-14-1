@@ -1,6 +1,5 @@
 [docker]
-44.208.138.3
-
+44.196.185.236
 
 [all:vars]
 ansible_user=ubuntu
