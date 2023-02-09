@@ -1,0 +1,13 @@
+---
+- name: Playbook para depliegue docker
+  hosts: docker
+  become: yes
+  
+  tasks:
+    - name: desplegar el docker compose de la instancia
+      docker_compose:
+        project_src: docker
+        files:
+          - docker-compose.yml
+        state: present
+        docker_host: unix:///var/run/docker.sock

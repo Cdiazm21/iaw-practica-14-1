@@ -1,0 +1,70 @@
+---
+- name: Playbook para instalar docker y docker-compose
+  hosts: docker
+  become: yes
+
+  tasks:
+  - name: Actualizamos los repositorios
+    apt:
+      update_cache: true
+
+  - name: Instalamos el docker
+    apt:
+      name: docker.io
+      state: present
+  
+  - name: Creamos el directorio para docker compose
+    file:
+      path: /home/ubuntu/.docker/cli-plugins
+      state: directory
+      mode: 0775
+      owner: ubuntu
+      group: ubuntu
+
+  - name: Descargamos docker compose
+    get_url:
+      url: https://github.com/docker/compose/releases/download/v2.15.1/docker-compose-linux-x86_64
+      dest: /home/ubuntu/.docker/cli-plugins/docker-compose
+      mode: 0775
+      owner: ubuntu
+      group: ubuntu
+       
+  - name: Agregamos el grupo docker
+    user: 
+      name: ubuntu
+      groups: docker
+      append: true
+
+  - name: Instalamos el gestor de paquetes de Python
+    apt:
+      name: python3-pip
+      state: present
+
+  - name: Instalamos de docker para python
+    pip:
+      name: docker
+      state: present
+
+  - name: Instalamos de docker compose para python
+    pip:
+      name: docker-compose
+      state: present
+
+  - name: Cambiamos permisos para el directorio /var/run/docker.sock
+    file:
+      path: /var/run/docker.sock
+      mode: 0777
+      
+  - name: Reiniciamos el docker
+    service:
+      name: docker.service
+      state: restarted
+
+  - name: Movemos el directorio de docker a la maquina remota
+    copy:
+      src: ../../docker/
+      dest: /home/ubuntu/docker
+      mode: 0775
+      owner: ubuntu
+      group: ubuntu
+    

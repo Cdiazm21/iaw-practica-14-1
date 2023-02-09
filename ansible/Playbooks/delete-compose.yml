@@ -1,0 +1,13 @@
+---
+- name: Playbook para depliegue docker
+  hosts: docker
+  become: yes
+  
+  tasks:
+    - name: Eliminamos el docker compose de la instancia
+      docker_compose:
+        project_src: /home/ubuntu/docker
+        files:
+          - docker-compose.yml
+        state: absent
+        docker_host: unix:///var/run/docker.sock

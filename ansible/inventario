@@ -1,0 +1,8 @@
+[docker]
+44.208.138.3
+
+
+[all:vars]
+ansible_user=ubuntu
+ansible_ssh_private_key_file=/home/cdiaz/vockey.pem
+ansible_ssh_common_args='-o stricthostkeychecking=accept-new'
