@@ -3,7 +3,7 @@ provider "aws" {
   region = "us-east-1"
 }
 
-# Creamos un grupo de seguridad para el backend
+# Creamos un grupo de seguridad para el docker
 resource "aws_security_group" "docker_14_1" {
   name        = "docker_14_1"
   description = "Grupo de seguridad para la instancia del docker de la practica 14-1 "
@@ -42,7 +42,7 @@ resource "aws_security_group" "docker_14_1" {
 }
 
 
-# Creamos una instancia EC2 del backend
+# Creamos una instancia EC2 del docker
 resource "aws_instance" "instancia_docker_14_1" {
   ami                    = "ami-00874d747dde814fa"
   instance_type          = "t2.medium"
